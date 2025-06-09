@@ -2,12 +2,10 @@ import type { APIRoute } from 'astro';
 import nodemailer from 'nodemailer';
 import { EMAIL_PASSWORD } from 'astro:env/server';
 
-// Necesario para endpoints de API que manejan POST requests
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // Verificar que sea una petición POST con JSON
     if (request.headers.get('Content-Type') !== 'application/json') {
       return new Response(
         JSON.stringify({ error: 'Content-Type debe ser application/json' }),
@@ -15,44 +13,36 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Obtener los datos del formulario
     const body = await request.json();
     const { nombre, email, telefono, mensaje } = body;
 
-    // Validar campos requeridos
     if (!nombre || !email || !mensaje) {
       return new Response(
         JSON.stringify({ error: 'Nombre, email y mensaje son requeridos' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
-
-    // Validaciones específicas
     const validationErrors = [];
 
-    // Validar nombre (solo letras, espacios, acentos, mínimo 2 palabras)
     const nombreRegex = /^[a-zA-ZÀ-ÿñÑ\s]{2,50}$/;
     const nombrePalabras = nombre.trim().split(/\s+/);
     if (!nombreRegex.test(nombre) || nombrePalabras.length < 2) {
       validationErrors.push('El nombre debe contener al menos 2 palabras, solo letras y espacios (2-50 caracteres)');
     }
 
-    // Validar email
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
       validationErrors.push('El formato del correo electrónico no es válido');
     }
 
-    // Validar teléfono peruano (opcional, pero si se proporciona debe ser válido)
     if (telefono && telefono.trim() !== '') {
-      const telefonoLimpio = telefono.replace(/\s|-/g, ''); // Remover espacios y guiones
-      const telefonoRegex = /^9\d{8}$/; // Debe empezar con 9 y tener exactamente 9 dígitos
+      const telefonoLimpio = telefono.replace(/\s|-/g, '');
+      const telefonoRegex = /^9\d{8}$/;
       if (!telefonoRegex.test(telefonoLimpio)) {
-        validationErrors.push('El teléfono debe ser un número peruano válido (9 dígitos que comience con 9, ej: 942404311)');
+        validationErrors.push('El teléfono debe ser un número peruano válido (9 dígitos que comience con 9, ej: 941104311)');
       }
     }
 
-    // Validar mensaje (longitud mínima y máxima)
     if (mensaje.trim().length < 10) {
       validationErrors.push('El mensaje debe tener al menos 10 caracteres');
     }
@@ -60,7 +50,6 @@ export const POST: APIRoute = async ({ request }) => {
       validationErrors.push('El mensaje no puede exceder 1000 caracteres');
     }
 
-    // Si hay errores de validación, devolverlos
     if (validationErrors.length > 0) {
       return new Response(
         JSON.stringify({ 
@@ -71,11 +60,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Debug: verificar variables de entorno usando astro:env (método type-safe)
-    // console.log('DEBUG - EMAIL_PASSWORD está definida:', !!EMAIL_PASSWORD);
-    // console.log('DEBUG - EMAIL_PASSWORD length:', EMAIL_PASSWORD ? EMAIL_PASSWORD.length : 0);
-    // console.log('DEBUG - EMAIL_PASSWORD:', EMAIL_PASSWORD);
-    
     if (!EMAIL_PASSWORD) {
       console.error('ERROR: EMAIL_PASSWORD no está definida en las variables de entorno');
       return new Response(
@@ -84,18 +68,16 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Configurar el transportador de nodemailer
     const transporter = nodemailer.createTransport({
       host: 'conusper.efsystemas.net',
       port: 465,
-      secure: true, // true para puerto 465, false para otros puertos
+      secure: true,
       auth: {
         user: 'info@conusper.efsystemas.net',
         pass: EMAIL_PASSWORD,
       },
     });
 
-    // Configurar el contenido del correo
     const mailOptions = {
       from: '"Formulario Web CONUSPER" <info@conusper.efsystemas.net>',
       to: ['info@conusper.efsystemas.net', 'henryayacucho@gmail.com'],
@@ -154,7 +136,6 @@ Enviado el: ${new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' })}
       `.trim(),
     };
 
-    // Enviar el correo
     await transporter.sendMail(mailOptions);
 
     return new Response(

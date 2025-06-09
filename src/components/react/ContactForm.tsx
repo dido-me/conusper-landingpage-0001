@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styles from './ContactForm.module.css';
 
 interface ContactFormProps {
-  // Props opcionales si necesitamos configurar algo desde Astro
 }
 
 const ContactForm: React.FC<ContactFormProps> = () => {
@@ -17,7 +16,6 @@ const ContactForm: React.FC<ContactFormProps> = () => {
   const [errors, setErrors] = useState<{[key: string]: string}>({});
   const [touched, setTouched] = useState<{[key: string]: boolean}>({});
 
-  // Funciones de validación
   const validateNombre = (value: string): string => {
     const nombreRegex = /^[a-zA-ZÀ-ÿñÑ\s]{2,50}$/;
     const palabras = value.trim().split(/\s+/);
@@ -38,7 +36,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
   };
 
   const validateTelefono = (value: string): string => {
-    if (!value.trim()) return ''; // Es opcional
+    if (!value.trim()) return '';
     
     const telefonoLimpio = value.replace(/\s|-/g, '');
     const telefonoRegex = /^9\d{8}$/;
@@ -74,7 +72,6 @@ const ContactForm: React.FC<ContactFormProps> = () => {
       [name]: value
     }));
 
-    // Validar en tiempo real si el campo ya fue tocado
     if (touched[name]) {
       const fieldError = validateField(name, value);
       setErrors(prev => ({
@@ -104,7 +101,6 @@ const ContactForm: React.FC<ContactFormProps> = () => {
     setIsSubmitting(true);
     setErrors({});
 
-    // Validar todos los campos antes de enviar
     const newErrors: {[key: string]: string} = {};
     Object.keys(formData).forEach(field => {
       const fieldError = validateField(field, formData[field as keyof typeof formData]);
@@ -113,7 +109,6 @@ const ContactForm: React.FC<ContactFormProps> = () => {
       }
     });
 
-    // Si hay errores de validación, mostrarlos y no enviar
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       setTouched({
@@ -143,9 +138,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
         setErrors({});
         setTouched({});
       } else {
-        // Manejar errores del servidor
         if (result.details && Array.isArray(result.details)) {
-          // Errores de validación múltiples del backend
           setErrors({ general: result.details.join('. ') });
         } else {
           setErrors({ general: result.error || 'Error al enviar el mensaje' });

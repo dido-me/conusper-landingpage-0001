@@ -1,5 +1,4 @@
 ---
-// Contact component
 import ContactForm from './react/ContactForm.tsx';
 ---
 
@@ -36,7 +35,6 @@ import ContactForm from './react/ContactForm.tsx';
 			</div>
 			
 			<div class="contact-form-container">
-				<!-- Usando React con directiva client:load para que sea interactivo desde el inicio -->
 				<ContactForm client:load />
 			</div>
 		</div>
@@ -74,7 +72,6 @@ import ContactForm from './react/ContactForm.tsx';
 	}
 	
 	.contact-form-container {
-		/* Estilos del contenedor del formulario React */
 		min-height: 400px;
 		display: flex;
 		flex-direction: column;
