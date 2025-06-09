@@ -1,6 +1,12 @@
 import type { APIRoute } from 'astro';
 import nodemailer from 'nodemailer';
-import { EMAIL_PASSWORD } from 'astro:env/server';
+import { 
+  EMAIL_PASSWORD, 
+  SMTP_HOST, 
+  SMTP_USER, 
+  EMAIL_FROM, 
+  EMAIL_TO_LIST 
+} from 'astro:env/server';
 
 export const prerender = false;
 
@@ -60,8 +66,20 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    if (!EMAIL_PASSWORD) {
-      console.error('ERROR: EMAIL_PASSWORD no está definida en las variables de entorno');
+    const requiredEnvVars = {
+      EMAIL_PASSWORD,
+      SMTP_HOST,
+      SMTP_USER,
+      EMAIL_FROM,
+      EMAIL_TO_LIST
+    };
+
+    const missingVars = Object.entries(requiredEnvVars)
+      .filter(([key, value]) => !value)
+      .map(([key]) => key);
+
+    if (missingVars.length > 0) {
+      console.error('ERROR: Variables de entorno faltantes:', missingVars.join(', '));
       return new Response(
         JSON.stringify({ error: 'Configuración de email no disponible' }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
@@ -69,18 +87,20 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const transporter = nodemailer.createTransport({
-      host: 'conusper.efsystemas.net',
+      host: SMTP_HOST,
       port: 465,
       secure: true,
       auth: {
-        user: 'info@conusper.efsystemas.net',
+        user: SMTP_USER,
         pass: EMAIL_PASSWORD,
       },
     });
 
+    const emailList = EMAIL_TO_LIST.split(',').map((email: string) => email.trim()).filter((email: string) => email);
+    
     const mailOptions = {
-      from: '"Formulario Web CONUSPER" <info@conusper.efsystemas.net>',
-      to: ['info@conusper.efsystemas.net', 'henryayacucho@gmail.com'],
+      from: EMAIL_FROM,
+      to: emailList,
       subject: `Nuevo mensaje de ${nombre} - Formulario Web CONUSPER`,
       html: `
         <div style="font-family: 'Montserrat', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f7fa;">

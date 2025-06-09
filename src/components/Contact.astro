@@ -1,5 +1,6 @@
 ---
 import ContactForm from './react/ContactForm.tsx';
+import { COMPANY_PHONE, COMPANY_EMAIL, COMPANY_ADDRESS } from 'astro:env/client';
 ---
 
 <section class="contact" id="contacto">
@@ -13,7 +14,7 @@ import ContactForm from './react/ContactForm.tsx';
 					<i class="fas fa-phone"></i>
 					<div>
 						<h3>Teléfono</h3>
-						<p>957 171 198</p>
+						<p>{COMPANY_PHONE}</p>
 					</div>
 				</div>
 				
@@ -21,7 +22,7 @@ import ContactForm from './react/ContactForm.tsx';
 					<i class="fas fa-envelope"></i>
 					<div>
 						<h3>Email</h3>
-						<p>info@conusper.efsystemas.net</p>
+						<p>{COMPANY_EMAIL}</p>
 					</div>
 				</div>
 				
@@ -29,7 +30,7 @@ import ContactForm from './react/ContactForm.tsx';
 					<i class="fas fa-map-marker-alt"></i>
 					<div>
 						<h3>Dirección</h3>
-						<p>Jr. Cusco 360, Ayacucho, Perú</p>
+						<p>{COMPANY_ADDRESS}</p>
 					</div>
 				</div>
 			</div>
