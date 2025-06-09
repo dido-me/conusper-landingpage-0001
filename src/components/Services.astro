@@ -1,0 +1,112 @@
+---
+// Services component
+---
+
+<section class="services" id="servicios">
+	<div class="container">
+		<div class="section-title">
+			<h2>Nuestros Servicios</h2>
+		</div>
+		<div class="services-grid">
+			<div class="service-card">
+				<div class="service-icon">
+					<i class="fas fa-laptop-code"></i>
+				</div>
+				<div class="service-content">
+					<h3>Implementación de Plataforma</h3>
+					<p>Configuración y puesta en marcha completa de la plataforma Perú Compras para su organización:</p>
+					<ul>
+						<li>Instalación y configuración inicial</li>
+						<li>Personalización según requerimientos</li>
+						<li>Integración con sistemas existentes</li>
+						<li>Capacitación técnica a su equipo</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="service-card">
+				<div class="service-icon">
+					<i class="fas fa-gavel"></i>
+				</div>
+				<div class="service-content">
+					<h3>Asesoría Legal</h3>
+					<p>Asesoramiento especializado en cumplimiento de la Ley 32069 y normativa OECE:</p>
+					<ul>
+						<li>Interpretación de normativa de contrataciones</li>
+						<li>Cumplimiento de procesos de selección</li>
+						<li>Elaboración de documentos contractuales</li>
+						<li>Prevención de contingencias legales</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="service-card">
+				<div class="service-icon">
+					<i class="fas fa-chalkboard-teacher"></i>
+				</div>
+				<div class="service-content">
+					<h3>Capacitación y Soporte</h3>
+					<p>Programas de capacitación y soporte continuo para el uso eficiente de Perú Compras:</p>
+					<ul>
+						<li>Capacitación a usuarios y administradores</li>
+						<li>Soporte técnico permanente</li>
+						<li>Actualizaciones regulatorias</li>
+						<li>Optimización de procesos de compra</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.services {
+		padding: 5rem 0;
+		background-color: white;
+	}
+	
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+	
+	.service-card {
+		background-color: var(--light);
+		border-radius: 8px;
+		overflow: hidden;
+		box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+		transition: all 0.3s ease;
+	}
+	
+	.service-card:hover {
+		transform: translateY(-10px);
+		box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+	}
+	
+	.service-icon {
+		background-color: var(--primary);
+		color: white;
+		text-align: center;
+		padding: 1.5rem;
+		font-size: 2.5rem;
+	}
+	
+	.service-content {
+		padding: 1.5rem;
+	}
+	
+	.service-content h3 {
+		color: var(--primary);
+		margin-bottom: 1rem;
+	}
+	
+	.service-content ul {
+		padding-left: 20px;
+		margin: 1rem 0;
+	}
+	
+	.service-content ul li {
+		margin-bottom: 0.5rem;
+	}
+</style> 

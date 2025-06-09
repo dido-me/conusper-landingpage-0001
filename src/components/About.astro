@@ -1,0 +1,76 @@
+---
+// About component
+---
+
+<section class="about" id="nosotros">
+	<div class="container">
+		<div class="about-content">
+			<div class="about-text">
+				<h2>CONUSPER EIRL - Especialistas en Compras Públicas</h2>
+				<p>Somos una empresa peruana con amplia experiencia en la implementación y asesoramiento de la plataforma <span class="highlight">Perú Compras</span>, herramienta fundamental para las adquisiciones públicas según la <span class="highlight">Ley 32069</span>.</p>
+				<p>Nuestro equipo de especialistas, liderado por <span class="highlight">Anyela</span>, garantiza soluciones efectivas adaptadas a las necesidades específicas de cada entidad pública, siempre bajo los lineamientos del <span class="highlight">OECE</span>.</p>
+				<p>Nos comprometemos a brindar un servicio de excelencia que optimice los procesos de compra de su institución, garantizando transparencia, eficiencia y pleno cumplimiento normativo.</p>
+				
+				<div class="contact-detail">
+					<i class="fas fa-map-marker-alt"></i>
+					<div>
+						<h3>Ubicación</h3>
+						<p>Jr. Cusco 360, Ayacucho, Perú</p>
+					</div>
+				</div>
+			</div>
+			<div class="about-image">
+				<img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Oficina CONUSPER EIRL">
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.about {
+		padding: 5rem 0;
+		background-color: #f0f4f8;
+	}
+	
+	.about-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3rem;
+		align-items: center;
+	}
+	
+	.about-text h2 {
+		font-family: 'Merriweather', serif;
+		color: var(--primary);
+		margin-bottom: 1.5rem;
+	}
+	
+	.about-image {
+		border-radius: 8px;
+		overflow: hidden;
+		box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+	}
+	
+	.about-image img {
+		width: 100%;
+		display: block;
+	}
+	
+	.contact-detail {
+		display: flex;
+		align-items: flex-start;
+		margin-top: 2rem;
+	}
+	
+	.contact-detail i {
+		font-size: 1.5rem;
+		margin-right: 1rem;
+		color: var(--primary);
+	}
+	
+	@media (max-width: 768px) {
+		.about-content {
+			grid-template-columns: 1fr;
+		}
+	}
+</style> 

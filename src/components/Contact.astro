@@ -1,0 +1,88 @@
+---
+// Contact component
+import ContactForm from './react/ContactForm.tsx';
+---
+
+<section class="contact" id="contacto">
+	<div class="container">
+		<div class="contact-grid">
+			<div class="contact-info">
+				<h2>Contáctenos</h2>
+				<p>Estamos listos para asesorarle en la implementación de Perú Compras y el cumplimiento de la Ley 32069.</p>
+				
+				<div class="contact-detail">
+					<i class="fas fa-phone"></i>
+					<div>
+						<h3>Teléfono</h3>
+						<p>957 171 198</p>
+					</div>
+				</div>
+				
+				<div class="contact-detail">
+					<i class="fas fa-envelope"></i>
+					<div>
+						<h3>Email</h3>
+						<p>info@conusper.efsystemas.net</p>
+					</div>
+				</div>
+				
+				<div class="contact-detail">
+					<i class="fas fa-map-marker-alt"></i>
+					<div>
+						<h3>Dirección</h3>
+						<p>Jr. Cusco 360, Ayacucho, Perú</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="contact-form-container">
+				<!-- Usando React con directiva client:load para que sea interactivo desde el inicio -->
+				<ContactForm client:load />
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact {
+		padding: 5rem 0;
+		background: linear-gradient(to right, var(--primary), #0a3a62);
+		color: white;
+	}
+	
+	.contact-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3rem;
+	}
+	
+	.contact-info h2 {
+		font-family: 'Merriweather', serif;
+		margin-bottom: 1.5rem;
+	}
+	
+	.contact-detail {
+		display: flex;
+		align-items: flex-start;
+		margin-bottom: 1.5rem;
+	}
+	
+	.contact-detail i {
+		font-size: 1.5rem;
+		margin-right: 1rem;
+		color: var(--accent);
+	}
+	
+	.contact-form-container {
+		/* Estilos del contenedor del formulario React */
+		min-height: 400px;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	@media (max-width: 768px) {
+		.contact-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style> 
