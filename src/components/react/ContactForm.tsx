@@ -210,7 +210,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
           <input
             type="tel"
             name="telefono"
-            placeholder="Teléfono (ej: 942404311)"
+            placeholder="Teléfono (ej: 9XXXXXXXX)"
             value={formData.telefono}
             onChange={handleInputChange}
             onBlur={handleBlur}
